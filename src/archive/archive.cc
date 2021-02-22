@@ -17,6 +17,10 @@ using namespace AhoViewer;
 #include "zip.h"
 #endif // HAVE_LIBZIP
 
+#ifdef HAVE_LIBMANGO
+#include "mango.h"
+#endif
+
 const std::vector<std::string> Archive::MimeTypes = {
 #ifdef HAVE_LIBZIP
     "application/x-zip", "application/x-zip-compressed", "application/zip",   "application/cbz",
@@ -25,6 +29,10 @@ const std::vector<std::string> Archive::MimeTypes = {
 #ifdef HAVE_LIBUNRAR
     "application/x-rar", "application/x-rar-compressed", "application/x-cbr",
 #endif // HAVE_LIBUNRAR
+
+#ifdef HAVE_LIBMANGO
+    "application/mango",
+#endif
 };
 
 const std::vector<std::string> Archive::FileExtensions = {
@@ -37,6 +45,10 @@ const std::vector<std::string> Archive::FileExtensions = {
     "rar",
     "cbr",
 #endif // HAVE_LIBUNRAR
+
+#ifdef HAVE_LIBMANGO
+    "mango",
+#endif
 };
 
 bool Archive::is_valid(const std::string& path)
@@ -80,6 +92,12 @@ std::unique_ptr<Archive> Archive::create(const std::string& path, const std::str
             if (type == Type::RAR)
                 return std::make_unique<Rar>(path, dir);
 #endif // HAVE_LIBUNRAR
+
+#ifdef HAVE_LIBMANGO
+            if (type == Type::MANGO)
+                return std::make_unique<Mango>(path, dir);
+#endif
+
         }
     }
 
@@ -107,6 +125,14 @@ Archive::Type Archive::get_type(const std::string& path)
         return Type::RAR;
 #endif // HAVE_LIBUNRAR
 
+#ifdef HAVE_LIBMANGO
+    // cbor doesn't have a magic value
+    std::string suffix(".mango");
+    size_t index = path.find(suffix, path.size() - suffix.size());
+    if (index != std::string::npos) {
+        return Type::MANGO;
+    }
+#endif
     return Type::UNKNOWN;
 }
 

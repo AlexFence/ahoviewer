@@ -15,6 +15,7 @@ namespace AhoViewer
             UNKNOWN,
             ZIP,
             RAR,
+            MANGO,
         };
 
         enum FileType

@@ -11,7 +11,7 @@ ahoviewer_cpp_args = [ ]
 
 deps = [
   threads, glibmm, sigcpp, gtkmm, libconfig, libxml, curl,
-  gstreamer, gstaudio, gstvideo, libpeas, libsecret, libunrar, libzip, libnsgif,
+  gstreamer, gstaudio, gstvideo, libpeas, libsecret, libunrar, libzip, libnsgif, libmango
 ]
 incdirs = [ ]
 sources = [ ]
@@ -106,6 +106,10 @@ if libzip.found()
   conf.set('HAVE_LIBZIP', 1)
 endif
 
+if libmango.found()
+  conf.set('HAVE_LIBMANGO', 1)
+endif
+
 configure_file(
   output : 'config.h',
   configuration : conf
@@ -135,6 +139,7 @@ sources += [
   'archive/image.cc',
   'archive/rar.cc',
   'archive/zip.cc',
+  'archive/mango.cc',
   'booru/browser.cc',
   'booru/curler.cc',
   'booru/image.cc',

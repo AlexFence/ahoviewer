@@ -206,7 +206,7 @@ ImageBox::ImageBox(BaseObjectType* cobj, const Glib::RefPtr<Gtk::Builder>& bldr)
 
 ImageBox::~ImageBox()
 {
-    clear_image();
+    //clear_image();
 #ifdef HAVE_GSTREAMER
     gst_object_unref(GST_OBJECT(m_Playbin));
 #endif // HAVE_GSTREAMER

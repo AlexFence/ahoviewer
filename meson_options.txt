@@ -39,3 +39,10 @@ option(
   value : 'auto',
   description : 'Enable or disable zip archive support'
 )
+
+option(
+  'libmango',
+  type : 'feature',
+  value : 'auto',
+  description : 'Enable or disable mango file support'
+)

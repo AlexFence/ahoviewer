@@ -78,6 +78,7 @@ if not libunrar.found() and not get_option('libunrar').disabled()
   endif
 endif
 libzip = dependency('libzip', required : get_option('libzip'))
+libmango = dependency('libmango', required : get_option('libmango'))
 
 # If not found on system the version found in ext directory will be built into
 # ahoviewer
